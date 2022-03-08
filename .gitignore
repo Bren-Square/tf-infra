@@ -1,0 +1,12 @@
+__pycache__/
+.vscode
+.mypy_cache
+docker-stack.yml
+.env
+pyvenv.cfg
+lib/
+bin/
+include/
+.DS_Store
+.terraform*
+*.tfvars
