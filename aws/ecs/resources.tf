@@ -1,14 +1,11 @@
-# We need a cluster in which to put our service.
 resource "aws_ecs_cluster" "this" {
   name = var.tier
 }
 
-# Log groups hold logs from our app.
 resource "aws_cloudwatch_log_group" "this" {
   name = "/ecs/${var.app_name}"
 }
 
-# The main service.
 resource "aws_ecs_service" "this" {
   name            = var.app_name
   task_definition = aws_ecs_task_definition.this.arn
@@ -79,7 +76,6 @@ resource "aws_iam_role" "this" {
   assume_role_policy = data.aws_iam_policy_document.ecs_task_assume_role.json
 }
 
-# Attach the above policy to the execution role.
 resource "aws_iam_role_policy_attachment" "ecs_task_execution_role" {
   role       = aws_iam_role.this.name
   policy_arn = data.aws_iam_policy.ecs_task_execution_role.arn
@@ -94,7 +90,7 @@ resource "aws_lb_target_group" "this" {
 
   health_check {
     enabled = true
-    path    = "/api/health"
+    path    = "/api/v1/health"
   }
 
   depends_on = [aws_alb.this]
