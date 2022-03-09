@@ -1,44 +1,44 @@
 resource "aws_vpc" "app_vpc" {
   cidr_block = "10.0.0.0/16"
-  tags       = local.tags
+  tags       = var.tags
 }
 
 resource "aws_subnet" "public_d" {
   vpc_id            = aws_vpc.app_vpc.id
   cidr_block        = "10.0.1.0/24"
   availability_zone = "us-east-1d"
-  tags              = local.public_subnet_tags
+  tags              = var.public_subnet_tags
 }
 
 resource "aws_subnet" "private_d" {
   vpc_id            = aws_vpc.app_vpc.id
   cidr_block        = "10.0.2.0/24"
   availability_zone = "us-east-1d"
-  tags              = local.private_subnet_tags
+  tags              = var.private_subnet_tags
 }
 
 resource "aws_subnet" "public_e" {
   vpc_id            = aws_vpc.app_vpc.id
   cidr_block        = "10.0.3.0/24"
   availability_zone = "us-east-1e"
-  tags              = local.public_subnet_tags
+  tags              = var.public_subnet_tags
 }
 
 resource "aws_subnet" "private_e" {
   vpc_id            = aws_vpc.app_vpc.id
   cidr_block        = "10.0.4.0/24"
   availability_zone = "us-east-1e"
-  tags              = local.private_subnet_tags
+  tags              = var.private_subnet_tags
 }
 
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.app_vpc.id
-  tags   = local.tags
+  tags   = var.tags
 }
 
 resource "aws_route_table" "private" {
   vpc_id = aws_vpc.app_vpc.id
-  tags   = local.tags
+  tags   = var.tags
 }
 
 resource "aws_route_table_association" "public_d_subnet" {

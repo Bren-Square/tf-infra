@@ -1,14 +1,14 @@
 # Data calls needed for later
-data aws_vpc "this" {
+data "aws_vpc" "this" {
   filter {
-    name = "tag:Name"
+    name   = "tag:Name"
     values = [var.tier]
   }
 }
 
-data aws_subnets "public" {
+data "aws_subnets" "public" {
   filter {
-    name = "vpc-id"
+    name   = "vpc-id"
     values = [data.aws_vpc.this.id]
   }
 
@@ -17,9 +17,9 @@ data aws_subnets "public" {
   }
 }
 
-data aws_subnets "private" {
+data "aws_subnets" "private" {
   filter {
-    name = "vpc-id"
+    name   = "vpc-id"
     values = [data.aws_vpc.this.id]
   }
 
@@ -37,7 +37,7 @@ data "aws_security_group" "ingress" {
   name = "ingress-api"
 
   filter {
-    name = "vpc-id"
+    name   = "vpc-id"
     values = [data.aws_vpc.this.id]
   }
 }
@@ -46,7 +46,7 @@ data "aws_security_group" "egress" {
   name = "egress-all"
 
   filter {
-    name = "vpc-id"
+    name   = "vpc-id"
     values = [data.aws_vpc.this.id]
   }
 }
@@ -54,7 +54,7 @@ data "aws_security_group" "egress" {
 data "aws_security_group" "http" {
   name = "http"
   filter {
-    name = "vpc-id"
+    name   = "vpc-id"
     values = [data.aws_vpc.this.id]
   }
 }
@@ -62,7 +62,7 @@ data "aws_security_group" "http" {
 data "aws_security_group" "https" {
   name = "https"
   filter {
-    name = "vpc-id"
+    name   = "vpc-id"
     values = [data.aws_vpc.this.id]
   }
 }
